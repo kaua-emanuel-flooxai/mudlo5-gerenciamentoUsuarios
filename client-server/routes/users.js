@@ -17,7 +17,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/:id", function (req, res, next) {
-  client.get("/users/${req.params.id}", function (err, request, response, obj) {
+  client.get(`/users/${this.id}`, function (err, request, response, obj) {
     assert.ifError(err);
 
     res.json(obj);
@@ -26,7 +26,7 @@ router.get("/:id", function (req, res, next) {
 
 router.put("/:id", function (req, res, next) {
   client.put(
-    "/users/${req.params.id}",
+    `/users/${this.id}`,
     req.body,
     function (err, request, response, obj) {
       assert.ifError(err);
@@ -37,7 +37,7 @@ router.put("/:id", function (req, res, next) {
 });
 
 router.delete("/:id", function (req, res, next) {
-  client.del("/users/${req.params.id}", function (err, request, response, obj) {
+  client.del(`/users/${this.id}`, function (err, request, response, obj) {
     assert.ifError(err);
 
     res.json(obj);

@@ -57,15 +57,15 @@ class UserController {
 
           user.loadFromJSON(result);
 
-          user.save();
+          user.save().this((user) => {
+            this.getTr(user, tr);
 
-          this.getTr(user, tr);
-
-          this.addEventsTR(tr);
-          this.updateAcount();
-          this.formUpdateEl.reset();
-          this.showPainelCreate();
-          btn.disabled = false;
+            this.addEventsTR(tr);
+            this.updateAcount();
+            this.formUpdateEl.reset();
+            btn.disabled = false;
+            this.showPainelCreate();
+          });
         },
         (e) => {
           console.error("Erro ao carregar a foto:", e);
@@ -92,11 +92,13 @@ class UserController {
         (content) => {
           values.photo = content;
 
-          values.save();
+          values.save().then((user) => {
+            this.addLine(user);
 
-          this.addLine(values);
-          this.resetForm();
-          btn.disabled = false;
+            this.resetForm();
+
+            btn.disabled = false;
+          });
         },
         (e) => {
           console.error("Erro ao carregar a foto:", e);
