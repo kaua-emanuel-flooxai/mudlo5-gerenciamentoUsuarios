@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 class UserController {
   constructor(formId, formUpdate, tableId) {
     this.formEl = document.getElementById(formId);
@@ -158,12 +160,12 @@ class UserController {
   }
 
   selectAll() {
-    let users = this.getUsersStorege();
-
-    users.forEach((data) => {
-      let user = new User();
-      user.loadFromJSON(data);
-      this.addLine(user);
+    HttpRequest.get("/users").then((data) => {
+      obj.users.forEach((data) => {
+        let user = new User();
+        user.loadFromJSON(data);
+        this.addLine(user);
+      });
     });
   }
 
