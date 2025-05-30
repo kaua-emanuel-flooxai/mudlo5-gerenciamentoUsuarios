@@ -162,7 +162,7 @@ class UserController {
   }
 
   selectAll() {
-    HttpRequest.get("/users").then((data) => {
+    User.getUsersStorege().then((data) => {
       obj.users.forEach((data) => {
         let user = new User();
         user.loadFromJSON(data);
@@ -210,10 +210,10 @@ class UserController {
 
         user.loadFromJSON(JSON.parse(tr.dataset.user));
 
-        user.remove();
-
-        tr.remove();
-        this.updateAcount();
+        user.remove().then((data) => {
+          tr.remove();
+          this.updateAcount();
+        });
       }
     });
 

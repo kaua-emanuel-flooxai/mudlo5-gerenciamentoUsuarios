@@ -84,22 +84,8 @@ class User {
     }
   }
 
-  getNewId() {
-    if (!window.id) window.id = 0;
-
-    id++;
-
-    return id;
-  }
-
   static getUsersStorege() {
-    let users = [];
-
-    if (localStorage.getItem("users")) {
-      users = JSON.parse(localStorage.getItem("users"));
-    } else {
-    }
-    return users;
+    return fetch.get("/users");
   }
 
   toJSON() {
@@ -137,10 +123,6 @@ class User {
   }
 
   remove() {
-    let users = User.getUsersStorege();
-
-    users = users.filter((userData) => userData._id !== this._id);
-
-    localStorage.setItem("users", JSON.stringify(users));
+    return HttpRequest.delete(`/useres/${this.id}`);
   }
 }
